@@ -1,0 +1,58 @@
+﻿@model IEnumerable<work_01_MasterDetails.Models.Candidate>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="display-4">Candidate List</h1>
+<div class="row">
+    <div class="col">
+        <div class="d-flex justify-content-end">
+            <a asp-action="Create" asp-controller="Candidates" class="btn btn-outline-primary btn-sm mb-2"><i class="fa fa-plus"></i> Add New Candidate</a>
+        </div>
+        @foreach (var item in Model)
+        {
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between">
+                    <div>
+                        <img class="rounded-circle" src="@item.Image" width="35" />&nbsp;&nbsp;&nbsp;&nbsp;
+                        <strong>Name: </strong>@Html.DisplayFor(x=>item.CandidateName) &nbsp;&nbsp;&nbsp;&nbsp;
+                        <strong>Date of Birth: </strong>@Html.DisplayFor(x=>item.DateOfBirth) &nbsp;&nbsp;&nbsp;&nbsp;
+                        <strong>Phone: </strong>@Html.DisplayFor(x=>item.Phone) &nbsp;&nbsp;&nbsp;&nbsp;
+                        <strong>Status: </strong>@Html.DisplayFor(x=>item.Fresher) &nbsp;&nbsp;&nbsp;&nbsp;
+                        <strong>Candidate Type: </strong>
+                        @if (item.Fresher == true)
+                        {
+                            <span class="text-primary">Fresher</span>
+                        }
+                        else
+                        {
+                            <span class="text-success">Experienced</span>
+                        }
+
+                    </div>
+                    <div>
+                        <a asp-action="Edit" asp-controller="Candidates" class="btn btn-outline-success btn-sm" asp-route-id="@item.CandidateId"><i class="fa fa-edit"></i> Edit</a>
+                        <a asp-action="Delete" asp-controller="Candidates" class="btn btn-outline-danger btn-sm" asp-route-id="@item.CandidateId"><i class="fa fa-trash"></i> Delete</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-striped table-hover table-responsive-sm">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Skills</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var i in item.CandidateSkills)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(x=>i.Skills.SkillsName)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+</div>
